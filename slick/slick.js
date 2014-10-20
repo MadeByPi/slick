@@ -1182,7 +1182,12 @@
                 });
             }
         } else {
-            _.$list.height(_.$slides.first().outerHeight(true) * _.options.slidesToShow);
+
+            var getHeight = function() { return $(this).height(); };
+            _.slideHeight = Math.max.apply(null, _.$slider.find('.slick-slide').map(getHeight));
+			_.$slideTrack.children('.slick-slide').height(_.slideHeight);
+			_.$list.height(_.slideHeight * _.options.slidesToShow);
+
             if (_.options.centerMode === true) {
                 _.$list.css({
                     padding: (_.options.centerPadding + ' 0px')
